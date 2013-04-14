@@ -1,0 +1,1 @@
+A package for the Go programming language for 2D geometry. This was primarily written for the needs of programmers doing 2D games. But it can in principle be used for anything.
