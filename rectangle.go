@@ -21,6 +21,8 @@ func (r Rect) HalfSize() Vector2D {
 	return r.Size().Mul(0.5)
 }
 
+// Check if point p is inside rectangle r. Point is considered inside
+// if it is on the border. 
 func (r Rect) Inside(p Point) bool {
 	return r.Min.IsMin(p) && r.Max.IsMax(p) || p == r.Min || p == r.Max
 }
@@ -54,4 +56,19 @@ func (r Rect) BottomLeft() Point {
 // and scaling is legal.
 func (r Rect) Transform(m Matrix3x3) Rect {
 	return Rect{m.TransformPoint(r.Min), m.TransformPoint(r.Max)}
+}
+
+func (r *Rect) Move(delta Vector2D) {
+	r.Min = r.Min.Add(delta)
+	r.Max = r.Max.Add(delta)
+}
+
+func (r *Rect) MoveTo(pos Point) {
+	size := r.Size()
+	r.Max = pos.Add(size)
+	r.Min = pos
+}
+
+func (r *Rect) MoveCenter(pos Point) {
+	r.Move(pos.Sub(r.Center()))
 }

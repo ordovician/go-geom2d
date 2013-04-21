@@ -13,13 +13,13 @@ import . "math"
 //     0        0      1 
 type Matrix3x3 [9]float64
 
-func NewMatrix(pos Point, ang float64) Matrix3x3 {
+func NewMatrix(pos Point, ang Radian) Matrix3x3 {
 	m := Identity()
     m[6] = pos.X
     m[7] = pos.Y
   
-    cosine := Cos(ang)
-    sine := Sin(ang)  
+    cosine := Cos(float64(ang))
+    sine := Sin(float64(ang))  
 
     m[0] = cosine
     m[3] = -sine
@@ -60,11 +60,11 @@ func Scale(x, y float64) Matrix3x3 {
 }
 
 // Rotation matrix. Angles radians.
-func Rotate(ang float64) Matrix3x3 {
+func Rotate(ang Radian) Matrix3x3 {
 	m := Identity()
   
-    cosine := Cos(ang)
-    sine := Sin(ang)  
+    cosine := Cos(float64(ang))
+    sine := Sin(float64(ang))  
 
     m[0] = cosine
     m[3] = -sine

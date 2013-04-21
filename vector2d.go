@@ -54,3 +54,7 @@ func (v Vector2D) Dot(u Vector2D) float64 {
 func (v Vector2D) Cross(u Vector2D) float64 {
 	return v.X*u.Y + v.Y*u.X
 }
+
+func (v Vector2D) Normal() Vector2D {
+	return Vector2D{-v.Y, v.X}
+}

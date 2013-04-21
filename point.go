@@ -38,3 +38,11 @@ func (p Point) IsMax(q Point) bool {
 	return p.X > q.X || (p.X == q.X && p.Y > q.Y)
 }
 
+// Project point onto axis.
+// Projecting a point onto an axis, is the same as finding
+// the spot closest to the point along the axis. 
+// The number returned is how far it is from origo to this spot
+func (p Point) Project(axis Direction) float64 {
+	return Vector2D(p).Dot(Vector2D(axis))
+}
+
