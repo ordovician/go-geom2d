@@ -3,7 +3,7 @@ package geom2d
 import "math"
 // NOTE: by embedding Point, Vector2D or direction in each other
 // we might be able to share functionality the way we wanted
- 
+
 
 // type Point struct {
 // 	X, Y float64

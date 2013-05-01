@@ -112,6 +112,11 @@ func (m Matrix3x3) Dir() Direction {
 	return Direction{m[0], m[1]}
 }
 
+func (m *Matrix3x3) SetDir(dir Direction) {
+	m[0] = dir.X
+	m[1] = dir.Y
+}
+
 func (m Matrix3x3) TransformPoint(p Point) Point {
 	return Point(m.MulVec(Vector2D(p)))
 }

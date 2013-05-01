@@ -50,3 +50,7 @@ func (d Direction) Mul(factor float64) Vector2D {
 func (d Direction) Normal() Direction {
 	return Direction{-d.Y, d.X}
 }
+
+func (d Direction) Angle() Radian {
+	return Radian(math.Atan2(d.Y, d.X))
+}
