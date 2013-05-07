@@ -46,3 +46,25 @@ func (p Point) Project(axis Direction) float64 {
 	return Vector2D(p).Dot(Vector2D(axis))
 }
 
+// Check if p and q are equal.
+func (p Point) Eq(q Point) bool {
+	return p.X == q.X && p.Y == q.Y
+}
+
+// Return the lexiographically smallest point of p and q
+func (p Point) Min(q Point) Point {
+	if p.IsMin(q) {
+		return p
+	}
+	
+	return q
+}
+
+// Return the lexiographically largest point of p and q
+func (p Point) Max(q Point) Point {
+	if p.IsMax(q) {
+		return p
+	}
+	
+	return q
+}
