@@ -28,12 +28,24 @@ func (r Rect) Inside(p Point) bool {
 }
 
 // Check if the rectangles r and s intersect each other
-func (r Rect) Intersect(s Rect) bool {
+func (r Rect) IntersectRect(s Rect) bool {
 	d := s.Center().Sub(r.Center())
 	h1 := r.HalfSize()
 	h2 := s.HalfSize()
 	
 	return d.X <= h1.X + h2.X && d.Y <= h1.Y + h2.Y
+}
+
+func (r Rect) IntersectCircle(c Circle) bool {
+	return c.IntersectRect(r)
+}
+
+func (r Rect) IntersectPolygon(poly Polygon) bool {
+	return poly.IntersectRect(r)
+}
+
+func (r Rect) Intersect(shape Shape) bool {
+	return shape.IntersectRect(r)
 }
 
 func (r Rect) TopLeft() Point {

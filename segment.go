@@ -58,8 +58,28 @@ func (s Segment) IntersectRect(r Rect) bool {
 			s.IntersectSegment(Segment{r.TopLeft()    , r.TopRight()})   	||
 			s.IntersectSegment(Segment{r.BottomLeft() , r.BottomRight()})	||
 			s.IntersectSegment(Segment{r.BottomRight(), r.TopRight()})		
-} 
+}
 
+func (seg Segment) Distance(p Point) float64 {
+	return seg.NearestPoint(p).Sub(p).Norm()
+}
+
+func (seg Segment) NearestPoint(p Point) Point {
+	v := seg.Vector()
+	dotS := p.Sub(seg.Source).Dot(v)
+	
+	if dotS <= 0 {
+		return seg.Source
+	}
+	
+	dotT := p.Sub(seg.Target).Dot(v.Neg())
+	if dotT <= 0 {
+		return seg.Target
+	}
+	
+	// seg.Source + v * (dotS + dotT)
+	return seg.Source.Add(v.Mul(dotS/(dotS + dotT)))
+}
 
 // The lexiographically smallest of the two endpoints of the segment
 func (s Segment) Min() Point {

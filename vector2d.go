@@ -16,7 +16,11 @@ func (v Vector2D) Length() int {
 
 // Magnitude of vector.
 func (v Vector2D) Norm() float64 {
-	return Sqrt(v.X*v.X + v.Y*v.Y)
+	return Sqrt(v.SqrNorm())
+}
+
+func (v Vector2D) SqrNorm() float64 {
+	return v.X*v.X + v.Y*v.Y
 }
 
 // Get the unit vector of v. 
@@ -57,4 +61,8 @@ func (v Vector2D) Cross(u Vector2D) float64 {
 
 func (v Vector2D) Normal() Vector2D {
 	return Vector2D{-v.Y, v.X}
+}
+
+func (v Vector2D) Neg() Vector2D {
+	return Vector2D{-v.X, -v.Y}
 }
