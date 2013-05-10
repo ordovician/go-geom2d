@@ -7,3 +7,11 @@ type Placement struct {
 	Pos Point
 	Dir Direction
 }
+
+func (place Placement) Matrix() Matrix3x3 {
+	m := Identity()
+	m.SetPos(place.Pos)
+	m.SetDir(place.Dir)
+	
+	return m
+}

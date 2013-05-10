@@ -50,6 +50,22 @@ func maxValue(values []float64) float64 {
     return result
 }
 
+// only works for convex shapes which are defined counter clockwise
+func (poly Polygon) Inside(q Point) bool {
+	p0 := poly[0]
+	for _, p1 := range poly[1:] {
+		if p1.Sub(p0).Cross(q.Sub(p0)) <= 0 {
+			return false
+		}
+		p0 = p1
+	}
+	p1 := poly[0]
+	if p1.Sub(p0).Cross(q.Sub(p0)) <= 0 {
+		return false
+	}
+	return true
+}
+
 // Check if the polygons a and b overlap.
 func (a Polygon) IntersectPolygon(b Polygon) bool {
     sepAxis := a.sepAxis()
