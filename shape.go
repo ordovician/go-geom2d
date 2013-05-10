@@ -6,4 +6,5 @@ type Shape interface {
 	IntersectPolygon(poly Polygon) bool
 	IntersectRect(r Rect) bool
 	IntersectCircle(c Circle) bool
+	BoundingBox() Rect
 }

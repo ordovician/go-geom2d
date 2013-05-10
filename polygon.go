@@ -99,3 +99,23 @@ func (poly Polygon) IntersectRect(r Rect) bool {
 func (poly Polygon) Intersect(shape Shape) bool {
     return shape.IntersectPolygon(poly)
 }
+
+// Transform the points in the polygon using matrix m
+func (poly Polygon) Transform(m Matrix3x3) {
+	for i, p := range poly {
+		poly[i] = m.TransformPoint(p)
+	}
+}
+
+// Calculate the boundingbox of the polygon
+func (poly Polygon) BoundingBox() Rect {
+	var min float64 = math.MaxFloat64
+	var max float64 = math.MaxFloat64
+	
+	// define an invalid Rect, which can only expand
+	r := Rect{Point{max, max}, Point{min, min}}
+	for _, p := range poly {
+		r = r.SurroundPoint(p)
+	}
+	return r
+}

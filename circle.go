@@ -77,3 +77,22 @@ func (c Circle) IntersectSegment(seg Segment) bool {
 func (c Circle) Intersect(shape Shape) bool {
 	return shape.IntersectCircle(c)
 }
+
+// Transform circle using matrix m.
+// Only affects its position. Scaling should not be used.
+func (c *Circle) Transform(m Matrix3x3) {
+	c.Center = m.TransformPoint(c.Center)
+}
+
+// Calculate the boundingbox of the polygon
+func (c Circle) BoundingBox() Rect {
+	var r Rect
+	
+	r.Min.X = -c.Radius
+	r.Max.X = c.Radius
+	r.Min.Y = -c.Radius
+	r.Max.Y = c.Radius
+	
+	(&r).MoveCenter(c.Center)
+	return r
+}

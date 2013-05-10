@@ -13,10 +13,12 @@ func (r Rect) Center() Point {
 	return Point{(r.Max.X + r.Min.X) * 0.5, (r.Max.Y + r.Min.Y) * 0.5}
 }
 
+// Width and height of rectangle
 func (r Rect) Size() Vector2D {
 	return r.Max.Sub(r.Min).Abs()
 }
 
+// half the width and height of rectangle
 func (r Rect) HalfSize() Vector2D {
 	return r.Size().Mul(0.5)
 }
@@ -64,10 +66,11 @@ func (r Rect) BottomLeft() Point {
 	return r.Min
 }
 
-// Create a new rectangle transformed by matrix m. Only translation
+// Transform rectangle r with matrix m. Only translation
 // and scaling is legal.
-func (r Rect) Transform(m Matrix3x3) Rect {
-	return Rect{m.TransformPoint(r.Min), m.TransformPoint(r.Max)}
+func (r *Rect) Transform(m Matrix3x3) {
+	r.Min = m.TransformPoint(r.Min)
+	r.Max = m.TransformPoint(r.Max)
 }
 
 func (r *Rect) Move(delta Vector2D) {
@@ -83,4 +86,21 @@ func (r *Rect) MoveTo(pos Point) {
 
 func (r *Rect) MoveCenter(pos Point) {
 	r.Move(pos.Sub(r.Center()))
+}
+
+// The smallest rectangle which can contain both r and point p
+func (r Rect) SurroundPoint(p Point) Rect {
+	return Rect{r.Min.MinComp(p),
+				r.Max.MaxComp(p)}
+}
+
+// The smallest rectangle containing both rectangles r and s
+func (r Rect) SurroundRect(s Rect) Rect {
+	return Rect{r.Min.MinComp(s.Min),
+				r.Max.MaxComp(s.Max)}
+}
+
+// The rect is the same as its own bounding box
+func (r Rect) BoundingBox() Rect {
+	return r
 }

@@ -68,3 +68,15 @@ func (p Point) Max(q Point) Point {
 	
 	return q
 }
+
+// Create a new point based on minimum components from each point q and p
+// X and Y are the components of a point. 
+func (p Point) MinComp(q Point) Point {
+  return Point{math.Min(p.X, q.X), math.Min(p.Y, q.Y)}
+}
+
+// Create a new point based on maximum components from each point q and p
+// X and Y are the components of a point. 
+func (p Point) MaxComp(q Point) Point {
+  return Point{math.Max(p.X, q.X), math.Max(p.Y, q.Y)}
+}
